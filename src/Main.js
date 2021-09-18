@@ -8,6 +8,7 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import DriveFileMoveIcon from '@mui/icons-material/DriveFileMove';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { data, data01, COLORS, linearData } from 'data';
 import {
   ComposedChart,
   ResponsiveContainer,
@@ -22,7 +23,7 @@ import {
   Cell,
   Tooltip
 } from 'recharts';
-import { Box, styled } from '@mui/system';
+import { styled } from '@mui/system';
 import LinearProgress, {
   linearProgressClasses
 } from '@mui/material/LinearProgress';
@@ -37,50 +38,7 @@ const Main = ({ active }) => {
       setRightNav(false);
     }
   }, []);
-  const data = [
-    {
-      name: 'jan',
-      uv: 57,
-      pv: 30,
-      amt: 1400
-    },
-    {
-      name: 'feb',
-      uv: 42,
-      pv: 57,
-      amt: 1506
-    },
-    {
-      name: 'mar',
-      uv: 57,
-      pv: 40,
-      amt: 989
-    },
-    {
-      name: 'apr',
-      uv: 60,
-      pv: 43,
-      amt: 1228
-    },
-    {
-      name: 'may',
-      uv: 42,
-      pv: 80,
-      amt: 1100
-    },
-    {
-      name: 'jun',
-      uv: 60,
-      pv: 78,
-      amt: 1700
-    },
-    {
-      name: 'jul',
-      uv: 50,
-      pv: 40,
-      amt: 1700
-    }
-  ];
+
   const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 10,
     borderRadius: 5,
@@ -92,13 +50,48 @@ const Main = ({ active }) => {
       backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8'
     }
   }));
-  const COLORS = ['#6543b4', '#4b91ff', '#fe5260'];
+  const LinearProgession = ({ label, value, className }) => {
+    return (
+      <div className="flex-row center">
+        <div className={`round-dot ${className}`}>
+          <small>{label}</small>
+        </div>
+        <BorderLinearProgress
+          variant="determinate"
+          className={className}
+          value={value}
+        />
+      </div>
+    );
+  };
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index
+  }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-  const data01 = [
-    { name: 'Group A', value: 45 },
-    { name: 'Group B', value: 25 },
-    { name: 'Group C', value: 30 }
-  ];
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? 'start' : 'center'}
+        dominantBaseline="central"
+        position="inside"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
+
   return (
     <div className={`main-content-area ${active ? 'open' : ''}`}>
       <Navbar handleClickAdd={handleClickAdd} />
@@ -190,52 +183,14 @@ const Main = ({ active }) => {
           <Grid item xs={12} md={12} lg={12} xl={4} className="linear">
             <p>Total Applications</p>
             <div className="linear-progress">
-              <div className="flex-row center">
-                <div className="round-dot app">
-                  <small>Applications</small>
-                </div>
-                <BorderLinearProgress
-                  variant="determinate"
-                  className="app"
-                  value={40}
+              {linearData.map(({ id, label, value, className }) => (
+                <LinearProgession
+                  key={id}
+                  label={label}
+                  value={value}
+                  className={className}
                 />
-              </div>
-              <div className="flex-row center">
-                <div className="round-dot short">
-                  <small>Short Listed</small>
-                </div>
-                <BorderLinearProgress variant="determinate" value={70} />
-              </div>
-              <div className="flex-row center">
-                <div className="round-dot rej">
-                  <small>Rejected</small>
-                </div>
-                <BorderLinearProgress
-                  className="rej"
-                  variant="determinate"
-                  value={47}
-                />
-              </div>
-              <div className="flex-row center">
-                <div className="round-dot hold">
-                  <small>On Hold</small>
-                </div>
-                <BorderLinearProgress
-                  className="hold"
-                  variant="determinate"
-                  value={20}
-                />
-              </div>
-              <div className="flex-row center">
-                <div className="round-dot pay">
-                  <small>Payload</small>
-                </div>
-                <BorderLinearProgress
-                  className="pay"
-                  variant="determinate"
-                  value={80}
-                />
-              </div>
+              ))}
             </div>
           </Grid>
           <Grid
@@ -319,7 +274,7 @@ const Main = ({ active }) => {
             style={{ height: 'auto' }}
             className=""
           >
-            <div className="flex-column justify-content-between stats doughnut">
+            <div className="flex-column justify-content-between align-start stats doughnut">
               <div className="flex-row justify-content-between">
                 <Typography>Open Position by Department</Typography>
               </div>
@@ -332,6 +287,7 @@ const Main = ({ active }) => {
                   outerRadius={120}
                   fill="#8884d8"
                   paddingAngle={0}
+                  label={renderCustomizedLabel}
                 >
                   <Label
                     value="open"

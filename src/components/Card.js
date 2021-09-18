@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { Box } from '@mui/system';
 import { CircularProgress, Typography } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const Card = ({ secondary, color }) => {
-  const [progress, setProgress] = useState(70);
+  const [progress] = useState(70);
   function CircularProgressWithLabel(props) {
     return (
       <Box sx={{ color: '#fff' }} position="relative" display="inline-flex">

@@ -4,9 +4,10 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import { rightNavData } from 'data';
 
 const RightNav = ({ rightNav, handleClickAdd }) => {
-  const Applicants = () => {
+  const Applicant = ({ name, designation }) => {
     return (
       <div className="applicant">
         <AccountCircleOutlinedIcon
@@ -16,9 +17,9 @@ const RightNav = ({ rightNav, handleClickAdd }) => {
           }}
         />
         <div className="name">
-          <p>Rossie Mette</p>
+          <p>{name}</p>
           <small>
-            applied for <span className="text-secondary">ios developer</span>{' '}
+            applied for <span className="text-secondary">{designation}</span>{' '}
           </small>
         </div>
         <span className="icon">
@@ -59,14 +60,9 @@ const RightNav = ({ rightNav, handleClickAdd }) => {
           <ChevronRightIcon />
         </div>
         <div className="position-absolute px-5">
-          <Applicants />
-          <Applicants />
-          <Applicants />
-          <Applicants />
-          <Applicants />
-          <Applicants />
-          <Applicants />
-          <Applicants />
+          {rightNavData.map(({ id, name, designation }) => (
+            <Applicant key={id} name={name} designation={designation} />
+          ))}
         </div>
       </div>
     </div>
