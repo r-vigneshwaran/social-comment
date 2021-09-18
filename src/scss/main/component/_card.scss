@@ -1,0 +1,27 @@
+.carding {
+  width: 350px;
+  height: 150px;
+  border: 1px solid rgb(82, 82, 82);
+  border-radius: 6px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  .mag {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-left: 15px;
+  }
+}
+.border-dotted {
+  position: relative;
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border: 1px dotted rgb(82, 82, 82);
+    border-radius: 5px;
+  }
+}

@@ -1,0 +1,340 @@
+.content {
+  overflow: visible;
+  width: 100%;
+  background: #000;
+  height: 100%;
+  margin-top: 90px;
+  @include transition(all 0.3s);
+  width: 100%;
+  &.active {
+    margin-left: 130px;
+    @media (max-width: $large) {
+      margin-left: 0px;
+    }
+  }
+}
+.main-content-area {
+  @include transition(all 0.3s);
+  margin-left: 78px;
+  @media (max-width: $large) {
+    margin-left: 0px;
+  }
+  &.open {
+    margin-left: 250px;
+    .stats {
+      padding: 10px;
+      .flex-column {
+        margin-right: 15px;
+      }
+    }
+  }
+  .container {
+    padding: 15px;
+  }
+}
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  background-color: $bg-primary;
+}
+body {
+  overflow: hidden;
+}
+#root {
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.main-container {
+  display: flex;
+  flex-direction: row;
+  @media (max-width: 1550px) {
+    .MuiGrid-item {
+      margin: 25px auto;
+    }
+  }
+}
+.container {
+  position: relative;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  grid-gap: 0px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  padding: 20px;
+}
+.right-nav {
+  width: 0px;
+  opacity: 0;
+  transform: translate(100%, 0px);
+  @include transition(all 0.3s);
+  @media (max-width: 1350px) {
+    position: fixed;
+    width: 350px;
+    right: -350px;
+    top: 0;
+    bottom: 0;
+    background-color: #1f2025;
+    &.active {
+      right: 0px;
+    }
+  }
+
+  &.active {
+    transform: translate(0px, 0px);
+    width: 500px;
+    opacity: 1;
+    @media (max-width: $medium) {
+      width: 70%;
+    }
+  }
+}
+.right-nav-img {
+  width: 100%;
+  img {
+    width: 100%;
+  }
+}
+.title {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 10px;
+}
+.applicants {
+  background: #383a44;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  height: 100%;
+  padding-top: 5px;
+  margin: 10px 0px;
+}
+.applicant {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 10px 0px;
+  .icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: $bg-primary-light;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+}
+.right-icon {
+  width: 25px;
+  height: 25px;
+  background: $bg-primary-light;
+  @include transition(all 0.3s);
+  color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: -5px;
+  top: 10%;
+  @media (max-width: 1350px) {
+    &.closed {
+      left: -15%;
+    }
+  }
+  @media (min-width: 1350px) {
+    &.closed {
+      left: -5%;
+      transform: rotate(180deg);
+    }
+  }
+}
+.name {
+  color: #fff;
+  p {
+    font-size: 15px;
+  }
+  small {
+    font-size: 10px;
+  }
+  // span {
+  //   color: #4b91ff;
+  // }
+}
+.text-secondary {
+  color: #4b91ff;
+}
+.MuiGrid-item {
+  height: 175px;
+}
+.MuiGrid-container {
+  height: fit-content;
+}
+.secondary-theme {
+  &::after {
+    border: 10px dotted white;
+    width: 100%;
+    height: 100%;
+  }
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  &.center {
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+}
+.linear {
+  padding-left: 50px !important;
+  padding-right: 50px !important;
+  color: #fff;
+  p {
+    font-size: 14px;
+  }
+}
+.linear-progress {
+  color: #acd0ef;
+  .round-dot {
+    position: relative;
+    &::after {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: white;
+      position: absolute;
+      content: '';
+      left: -10px;
+      top: 50%;
+      transform: translate(-0%, -50%);
+    }
+    &.app {
+      color: #acd0ef;
+      &::after {
+        background-color: #acd0ef;
+      }
+    }
+    &.short {
+      color: #4b91ff;
+      &::after {
+        background-color: #4b91ff;
+      }
+    }
+    &.rej {
+      color: $bg-teritary;
+      &::after {
+        background-color: $bg-teritary;
+      }
+    }
+    &.hold {
+      color: #ddc8ea;
+      &::after {
+        background-color: #ddc8ea;
+      }
+    }
+    &.pay {
+      color: #6543b4;
+      &::after {
+        background-color: #6543b4;
+      }
+    }
+  }
+
+  small {
+    white-space: nowrap;
+    margin-left: 10px;
+    width: 91px;
+    text-overflow: ellipsis;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .MuiLinearProgress-root {
+    width: 100%;
+    background-color: #464847;
+  }
+  .app {
+    .MuiLinearProgress-barColorPrimary {
+      background-color: #acd0ef;
+    }
+  }
+  .rej {
+    .MuiLinearProgress-barColorPrimary {
+      background-color: $bg-teritary;
+    }
+  }
+  .hold {
+    .MuiLinearProgress-barColorPrimary {
+      background-color: #ddc8ea;
+    }
+  }
+  .pay {
+    .MuiLinearProgress-barColorPrimary {
+      background-color: #6543b4;
+    }
+  }
+}
+.box {
+  width: 300px;
+  justify-content: space-between;
+  position: relative;
+  margin-top: 25px;
+  &::before {
+    border-left: 1px solid rgb(82, 82, 82);
+    height: 100px;
+    position: absolute;
+    left: 50%;
+    content: '';
+  }
+  .flex-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .flex-row {
+      color: $bg-secondary;
+    }
+  }
+}
+.statistics {
+  .stats {
+    flex-direction: row !important;
+    @media (max-width: $medium) {
+      flex-direction: column !important;
+    }
+  }
+}
+.stats {
+  border: 1px solid;
+  border-radius: 7px;
+  border-color: rgb(82, 82, 82);
+  padding: 30px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 1600) {
+    flex-direction: column !important;
+  }
+}
+.border {
+  border: 1px solid;
+  border-radius: 7px;
+  border-color: rgb(82, 82, 82);
+}
+.center-box {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-direction: column !important;
+}
+.doughnut {
+  margin-top: 0px;
+  @media (max-width: $medium) {
+    margin-top: 300px;
+  }
+}
